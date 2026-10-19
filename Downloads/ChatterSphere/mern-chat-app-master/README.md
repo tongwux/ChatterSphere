@@ -1,33 +1,7 @@
-# ChatterSphere: Build and Deploy a Real Time Chat App | JWT, Socket.io
+# ChatterSphere application source
 
-Some Features:
+This directory contains the Express/Mongoose backend and React frontend for the chat learning project.
 
--   🌟 Tech stack: MERN + Socket.io + TailwindCSS + Daisy UI
--   🎃 Authentication && Authorization with JWT
--   👾 Real-time messaging with Socket.io
--   🚀 Online user status (Socket.io and React Context)
--   👌 Global state management with Zustand
--   🐞 Error handling both on the server and on the client
--   ⭐ At the end Deployment like a pro for FREE!
--   ⏳ And much more!
+See the [repository README](../../../README.md) for implemented features, demo boundaries, local setup, known socket-authentication limitations, and planned improvements.
 
-### Setup .env file
-
-```js
-PORT=...
-MONGO_DB_URI=...
-JWT_SECRET=...
-NODE_ENV=...
-```
-
-### Build the app
-
-```shell
-npm run build
-```
-
-### Start the app
-
-```shell
-npm start
-```
+The existing [MIT license](LICENSE), including its Burak (2024) attribution, is retained. Group chat, production security, and scalable deployment are not established by this snapshot.
