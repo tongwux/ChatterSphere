@@ -2,6 +2,19 @@
 
 This version needs a long-running Node process and MongoDB. Express serves the built React client, HTTP API and Socket.io from one HTTPS origin. Deploy one service instance.
 
+## Current deployment — verified 2026-10-21
+
+- Public app: **https://chattersphere-tongwux.onrender.com/**
+- Render service: `chattersphere-tongwux`, Node 24.19.0, Free, Oregon; manually created from the public repository, automatic deploys off.
+- Application commit verified online: `198cc0f6bda7209cb603b269462b2f73f89fb66f` on `codex/chattersphere-rebuild`.
+- MongoDB Atlas: Free `ChatterSphere` cluster, AWS Oregon. The service user has only `readWrite` on the `chattersphere` database and is scoped to this cluster.
+- Atlas allows only Render's two displayed Oregon outbound ranges, `74.220.48.0/24` and `74.220.56.0/24`. These are shared regional ranges, not dedicated service IPs. No current-device IP or `0.0.0.0/0` rule was added.
+- All six production environment variables are stored in Render. Database/session secrets were not committed or written to local files.
+- Live acceptance passed: health JSON, signed-out access denial, secure session cookies, registration, two authenticated socket clients exchanging messages, retry deduplication, logout revocation, browser message sending, and login/history after a service restart.
+- Three explicitly named launch-check accounts were created for acceptance. Their randomly generated credentials were kept in process memory and discarded after testing; they are not published demo logins.
+
+The `render.yaml` below remains a reusable template; the live service was configured through Render's manual service form. Do not create a second Blueprint service just to update this existing deployment. After the PR is merged, change the existing service's branch to `main` and deploy that reviewed version manually.
+
 ## Before deployment
 
 1. Sign in to Render and MongoDB Atlas. Use an existing account/project if available.
