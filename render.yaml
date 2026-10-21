@@ -1,0 +1,26 @@
+# Create from https://dashboard.render.com/select-repo?type=blueprint
+# Supply APP_ORIGIN and MONGO_DB_URI in Render, never in this file.
+services:
+  - type: web
+    name: chattersphere
+    runtime: node
+    region: oregon
+    plan: free
+    branch: codex/chattersphere-rebuild
+    buildCommand: npm ci --include=dev && npm ci --prefix frontend --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: 'off'
+    envVars:
+      - key: NODE_VERSION
+        value: 24.19.0
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: '1'
+      - key: JWT_SECRET
+        generateValue: true
+      - key: APP_ORIGIN
+        sync: false
+      - key: MONGO_DB_URI
+        sync: false

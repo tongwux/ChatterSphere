@@ -24,3 +24,14 @@ AppData/
 AppData/
 *.jtx
 AppData/
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+coverage/
+test-results/
+playwright-report/
+.cache/
+*.log
+.local/

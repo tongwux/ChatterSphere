@@ -1,7 +1,3 @@
-# ChatterSphere application source
+# Application moved
 
-This directory contains the Express/Mongoose backend and React frontend for the chat learning project.
-
-See the [repository README](../../../README.md) for implemented features, demo boundaries, local setup, known socket-authentication limitations, and planned improvements.
-
-The existing [MIT license](LICENSE), including its Burak (2024) attribution, is retained. Group chat, production security, and scalable deployment are not established by this snapshot.
+The application now lives at the [repository root](../../../README.md). Backend and frontend commands should be run there. The tutorial's MIT license is retained at the root; the pre-refactor assessment is archived in `docs/README-before-refactor.md`.

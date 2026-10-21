@@ -1,95 +1,103 @@
-# ChatterSphere — Real-Time Chat Learning Project
+# ChatterSphere
 
-A MERN-stack learning project combining account login, persisted one-to-one messages, online-user presence, and Socket.io delivery.
+A working one-to-one messaging portfolio project by Tong Wu. React, Express, MongoDB and Socket.io, rebuilt with a responsive blue glass interface and authenticated real-time delivery. The translucent panels, backdrop blur and restored winter background draw from the original project's visual identity.
 
-**Current status:** code for a local learning/demo setup. Production security, scalability, and deployment reliability have not been established. Group discussions are not implemented.
+**[Open the live showcase](https://chattersphere-tongwux.onrender.com/)** — deployed on Render with MongoDB Atlas. The free instance may need around a minute to wake after inactivity.
 
-## Implemented in source
+![ChatterSphere conversation interface](docs/images/conversation.png)
 
-- Signup/login/logout controllers, bcrypt password hashing, and JWT cookies.
-- Protected HTTP routes for users and message history.
-- MongoDB/Mongoose user, message, and conversation models.
-- One-to-one message creation/history and Socket.io notifications to connected recipients.
-- Online-user presence, conversation selection, search UI, and notification behavior.
-- React Context for session/socket state and Zustand for selected conversation state.
+[Sign-in screen](docs/images/sign-in.png) · [Empty workspace](docs/images/workspace.png) · [Mobile conversation](docs/images/mobile.png)
 
-These are source-level implementations, not recorded end-to-end test results.
+Choose **white/light** or **black/dark** glass surfaces with a light-blue accent. Use the appearance button at the bottom right on desktop or top right on mobile. The default is white, and the browser remembers your selection. Switching appearance preserves the current session, conversation and form input.
 
-## Demo boundaries and limitations
+[White mode](docs/images/light-mode.png) · [Black mode](docs/images/dark-mode.png) · [Black-mode conversation](docs/images/conversation-dark.png)
 
-| Area | Current behavior |
-| --- | --- |
-| Data | Uses MongoDB when configured; messages are not just static frontend fixtures. |
-| Socket identity | Trusts a client-supplied `userId` without socket authentication. Fix this before exposing private messaging to real users. |
-| Presence | One socket per user in process memory; multi-device use, reconnects, and multiple servers require stronger handling. |
-| History | Loads a conversation's messages without pagination. |
-| Persistence | Saves conversation and message in parallel without a transaction; failure consistency and concurrent creation need review. |
-| Group chat / scale | Group conversations, distributed delivery, and load-tested scalability are not implemented. |
+## What works
 
-## Architecture
+- Register, sign in, restore a session, and sign out with server-side session revocation.
+- Discover registered people by name or username; browse existing conversations.
+- Exchange real, persisted text messages in real time across multiple browser sessions/devices.
+- Reconnect and refresh history after a connection interruption.
+- Load older messages with cursor pagination. Retry a send with the same ID without duplicating it.
+- Responsive desktop/mobile layouts, keyboard sending, emoji picker, local in-memory drafts, and accessible native account/about controls.
 
-The application lives in `Downloads/ChatterSphere/mern-chat-app-master/`.
+No fake contacts or automated replies are inserted. To demonstrate chat, create two accounts in separate browser profiles (or use an incognito window). Sign up both, find the other person in **People**, and send a message.
 
-```text
-backend/
-  controllers/    Account and message handlers
-  middleware/     HTTP route authentication
-  models/         Mongoose data models
-  routes/         API routes
-  socket/         Socket.io and online-user mapping
-frontend/src/
-  components/     Chat and sidebar UI
-  hooks/          API and message-event hooks
-  context/        Auth and socket state
-  zustand/        Conversation selection
-```
+## Run locally
 
-Express handles HTTP requests, MongoDB persists records, and Socket.io delivers events to connected clients. This separation is useful for studying stored state versus live notifications; it does not by itself establish delivery guarantees or production scalability.
-
-## Local setup
-
-Use Node.js/npm compatible with the committed dependencies and a development MongoDB instance. A tested runtime version is not yet recorded.
+Use Node **24.19.0** (see `.node-version`) and MongoDB. Source now lives directly at the repository root.
 
 ```sh
-git clone https://github.com/tongwux/ChatterSphere.git
-cd ChatterSphere/Downloads/ChatterSphere/mern-chat-app-master
-npm install
-npm install --prefix frontend
+npm ci
+npm ci --prefix frontend
+cp .env.example .env
 ```
 
-Create an uncommitted `.env` in that application directory:
-
-```dotenv
-PORT=5000
-MONGO_DB_URI=mongodb://127.0.0.1:27017/chattersphere_dev
-JWT_SECRET=replace_with_a_long_random_local_secret
-NODE_ENV=development
-```
-
-Start the backend, then the frontend in a second terminal from the same directory:
+Set `MONGO_DB_URI` to a development database and `JWT_SECRET` to a cryptographically random value of at least 32 characters. Keep `.env` uncommitted. With `APP_ORIGIN=http://localhost:3000`, start the backend and Vite in separate terminals:
 
 ```sh
-npm run server
-```
-
-```sh
+npm run dev
 npm run dev --prefix frontend
 ```
 
-Vite uses `http://localhost:3000` and proxies API calls to port 5000. Socket/CORS settings contain local URLs and need review for other environments. Use development-only accounts while socket authentication is unresolved.
+Open `http://localhost:3000`. Vite proxies both `/api` and `/socket.io` to the backend on port 5000. For a local production-build preview, build the frontend, set `APP_ORIGIN=http://localhost:5000`, keep `NODE_ENV=development` for HTTP, and run `npm start`.
 
-`npm run build` and `npm start` are also defined. No clean build, database session, or deployment was exercised during this documentation review. No business test suite or CI workflow is committed.
+An isolated test preview is also available, with a disposable MongoDB process and no production credentials:
 
-## Planned — not implemented
+```sh
+npm run build
+npm run test:server
+```
 
-- Authenticate sockets and derive identity from verified sessions.
-- Test cross-user access denial, reconnects, and multi-device presence.
-- Add pagination, input validation, and request limits.
-- Review atomic persistence and duplicate conversations.
-- Add CI and a reproducible deployment configuration.
+Open `http://127.0.0.1:5000`. Its accounts/messages disappear when the test process stops. Never use this command as a hosted service.
 
-## Attribution and portfolio scope
+## Verification
 
-The nested source retains a tutorial-style `chat-app-yt` package name and an [MIT license crediting Burak (2024)](Downloads/ChatterSphere/mern-chat-app-master/LICENSE). That attribution is preserved. An itemized contribution beyond the base is not currently documented; this repository is presented as a learning project, without claiming independent authorship of the entire architecture.
+```sh
+npm run build
+npm test
+npx playwright install chromium
+npm run test:e2e
+npm audit --audit-level=moderate
+npm audit --prefix frontend --audit-level=moderate
+```
 
-Future implementation notes should link specific original changes and their design/testing decisions. This README does not relicense third-party code or assets.
+Integration tests launch a real, disposable MongoDB binary using `mongodb-memory-server`; the first run needs network access for that download. Browser tests launch two separate browser contexts against the built app and an ephemeral database. CI runs the same checks on Ubuntu and uploads browser evidence.
+
+Covered behavior includes credentials and cookies, session revocation, authenticated sockets, forged identity, origin validation, input boundaries, rate limiting, independent recipient devices, third-party message isolation, idempotent sends, pagination, persisted history, reconnect recovery, XSS-as-text, mobile overflow, and signing back in. See [verification notes](docs/verification.md) for recorded results and scope.
+
+## Deploy
+
+[Deployment guide](docs/deployment.md) describes the Render Blueprint, MongoDB Atlas networking, environment values and smoke checks. `render.yaml` targets the review branch for initial validation; switch it to `main` after merging. It intentionally disables automatic deployment. `Dockerfile` is an alternative for a Node-capable host behind HTTPS.
+
+The production process fails startup if database configuration or session secrets are missing, the HTTPS app origin is invalid, or the database cannot connect. It initializes indexes before accepting traffic. `/api/health` returns 503 when the database is unavailable.
+
+## Security and boundaries
+
+- JWTs are stored only in HttpOnly, SameSite=Strict cookies (Secure in production), backed by revocable MongoDB sessions. Socket identity comes from the same verified session. Logout closes sockets for that session; expiration closes long-lived sockets.
+- Browser writes require the configured `APP_ORIGIN` and JSON. Socket requests with a cross-site Origin are rejected; same-origin polling can omit Origin but still requires a valid session.
+- API/auth/message limits, bounded JSON payloads, bounded message text, explicit validation, bcrypt hashes, escaped directory searches, password-field exclusion and Helmet headers are in place.
+- A message is one atomic MongoDB document. Existing legacy messages remain readable without the old conversation message-ID arrays. New writes use a sender-scoped idempotency index.
+- Messages are **not end-to-end encrypted**. The service operator and database administrators can access stored content. Usernames/display names are discoverable by signed-in users; do not use sensitive data in this portfolio showcase.
+- Presence and rate limiting are in process memory. Deploy **one instance**; distributed operation needs a shared Socket.io adapter and shared rate-limit store.
+- This release supports one-to-one text messaging. Groups, attachments, read receipts, password reset, account deletion and moderation are outside this version. Unread badges and drafts are in-memory UI conveniences; they reset after reload/sign-out.
+- No production database migration has been run. Use a dedicated showcase database. Review/back up any existing data before reusing a previous database; older usernames outside the new lowercase username rules need a migration plan.
+
+## Structure
+
+```text
+backend/app.js           HTTP routes, session validation and socket lifecycle
+backend/server.js        Configured production startup and graceful shutdown
+backend/models/          User, Message and Session schemas/indexes
+frontend/src/            React interface, request helpers and Zustand UI state
+tests/                   Integration and browser tests
+scripts/test-server.js   Disposable test-only server
+render.yaml              Render service declaration
+Dockerfile               Production container build
+```
+
+## Attribution
+
+The original project was based on Burak's 2024 MIT-licensed chat tutorial. The original [MIT notice](LICENSE) is retained. The v2 refactor adds the redesigned UI, revocable shared HTTP/socket authentication, session-bound presence, message/query changes, input/origin/rate-limit protections, tests and deployment configuration. This does not claim authorship of the original tutorial foundation.
+
+The prior project assessment is retained in [docs/README-before-refactor.md](docs/README-before-refactor.md) for historical context; its old paths and limitations describe the pre-refactor version.
