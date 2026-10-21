@@ -10,6 +10,8 @@ Verified locally on 2026-10-21 using Node 24.19.0 on Windows, a real disposable 
 - Desktop login, empty workspace, real conversation and 390px mobile screenshots reviewed.
 - `git diff --check`: passed.
 
+UI identity update: compared the original login/home source and background asset, restored blue branding, translucent glass surfaces and backdrop blur, and retained the v2 functionality and security logic. The production frontend build and both Chromium regression scenarios passed after this styling update. Desktop sign-in, desktop conversation and mobile screenshots were visually reviewed and refreshed in `docs/images/`. Backend files were unchanged.
+
 The integration suite covers protected HTTP/socket access, invalid credentials and tokens, origin checks, forged identities, bounded input, message persistence, sender identity binding, delivery to two recipient devices, recipient isolation, idempotency conflicts, pagination, production Secure cookies, session expiration, logout/replay denial, rate limits and health/security headers. Browser tests also confirm that HTML payloads render as text rather than executing.
 
 ## Public HTTPS acceptance — passed 2026-10-21

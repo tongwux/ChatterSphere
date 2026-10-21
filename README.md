@@ -1,6 +1,6 @@
 # ChatterSphere
 
-A working one-to-one messaging portfolio project by Tong Wu. React, Express, MongoDB and Socket.io, rebuilt with a responsive interface and authenticated real-time delivery.
+A working one-to-one messaging portfolio project by Tong Wu. React, Express, MongoDB and Socket.io, rebuilt with a responsive blue glass interface and authenticated real-time delivery. The translucent panels, backdrop blur and restored winter background draw from the original project's visual identity.
 
 **[Open the live showcase](https://chattersphere-tongwux.onrender.com/)** — deployed on Render with MongoDB Atlas. The free instance may need around a minute to wake after inactivity.
 

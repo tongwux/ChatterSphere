@@ -5,10 +5,10 @@
   background: #f3f3ed;
   font-synthesis: none;
   font-weight: 400;
-  --green: #193e35;
+  --brand: #193e35;
   --muted: #7e8881;
   --line: #e8ebe3;
-  --lime: #e2efa9;
+  --accent: #e2efa9;
   --paper: #fcfcf8;
 }
 * {
@@ -101,8 +101,8 @@ button:not(:disabled):active {
   width: 39px;
   height: 39px;
   border-radius: 13px;
-  background: var(--green);
-  color: var(--lime);
+  background: var(--brand);
+  color: var(--accent);
   font-size: 23px;
 }
 .eyebrow {
@@ -129,7 +129,7 @@ button:not(:disabled):active {
 }
 .primary-button {
   border-radius: 9px;
-  background: var(--green);
+  background: var(--brand);
   color: #fff;
   display: flex;
   align-items: center;
@@ -167,7 +167,7 @@ button:not(:disabled):active {
 }
 .icon-button:hover {
   background: #edf0e9;
-  color: var(--green);
+  color: var(--brand);
 }
 .avatar {
   width: 43px;
@@ -365,7 +365,7 @@ button:not(:disabled):active {
   top: 120px;
   left: 65px;
   transform: rotate(2deg);
-  background: var(--green);
+  background: var(--brand);
   color: #edf2de;
   padding: 15px 17px;
   min-width: 270px;
@@ -599,7 +599,7 @@ button:not(:disabled):active {
   overflow: hidden;
 }
 .rail {
-  background: var(--green);
+  background: var(--brand);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -631,7 +631,7 @@ button:not(:disabled):active {
   background: #2b4f43;
 }
 .rail-button.active {
-  background: var(--lime);
+  background: var(--accent);
   color: #284b36;
 }
 .rail-button.active:before {
@@ -707,7 +707,7 @@ button:not(:disabled):active {
   margin-bottom: 2px;
 }
 .new-chat:hover {
-  background: var(--lime);
+  background: var(--accent);
 }
 .search-field {
   display: flex;
@@ -1374,7 +1374,7 @@ button:not(:disabled):active {
   width: 37px;
   display: grid;
   place-items: center;
-  background: var(--green);
+  background: var(--brand);
   color: #e9efda;
   border-radius: 9px;
   font-size: 15px;
@@ -1428,8 +1428,8 @@ button:not(:disabled):active {
   display: flex;
   gap: 6px;
   align-items: center;
-  background: var(--lime);
-  color: var(--green);
+  background: var(--accent);
+  color: var(--brand);
   box-shadow: 0 3px 12px #283d2220;
   padding: 9px 13px;
   border-radius: 20px;
@@ -1951,7 +1951,7 @@ button:not(:disabled):active {
 dialog.about-modal {
   border: 1px solid #e3e7db;
   width: calc(100% - 40px);
-  color: var(--green);
+  color: var(--brand);
 }
 dialog.about-modal::backdrop {
   background: #173e3570;
