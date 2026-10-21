@@ -18,6 +18,8 @@ The integration suite covers protected HTTP/socket access, invalid credentials a
 
 ## Public HTTPS acceptance — passed 2026-10-21
 
+Black/white appearance update: production build and **3 browser scenarios** passed, including two accounts chatting across white and black themes, saved appearance after reload, retained form input while switching, and mobile layout in both modes. Light is the default. Backend and authentication/socket logic were not changed by this appearance update.
+
 URL: https://chattersphere-tongwux.onrender.com/
 
 Render served application commit `198cc0f6bda7209cb603b269462b2f73f89fb66f`. Actual hosted checks passed for `/api/health` (200 JSON), signed-out API access (401), Secure/HttpOnly/SameSite cookies, account creation, two independent authenticated WebSocket clients, two-way real-time delivery, idempotent retries, stored history and revoked-session denial after logout. The browser independently registered, searched users, sent a real message, signed out, and signed in again after a Render service restart; the sent message was still present in Atlas-backed history.

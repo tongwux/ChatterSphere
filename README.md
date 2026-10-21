@@ -8,6 +8,10 @@ A working one-to-one messaging portfolio project by Tong Wu. React, Express, Mon
 
 [Sign-in screen](docs/images/sign-in.png) · [Empty workspace](docs/images/workspace.png) · [Mobile conversation](docs/images/mobile.png)
 
+Choose **white/light** or **black/dark** glass surfaces with a light-blue accent. Use the appearance button at the bottom right on desktop or top right on mobile. The default is white, and the browser remembers your selection. Switching appearance preserves the current session, conversation and form input.
+
+[White mode](docs/images/light-mode.png) · [Black mode](docs/images/dark-mode.png) · [Black-mode conversation](docs/images/conversation-dark.png)
+
 ## What works
 
 - Register, sign in, restore a session, and sign out with server-side session revocation.

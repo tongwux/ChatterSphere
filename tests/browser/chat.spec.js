@@ -1,5 +1,27 @@
 import { test, expect } from '@playwright/test';
 
+test('black and white appearance modes switch without losing input and persist after reload', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await expect(page.locator('html')).toHaveCSS('color-scheme', 'light');
+  await page.getByLabel('Username', { exact: true }).fill('theme_check');
+  await page.screenshot({ path: 'test-results/theme-light-desktop.png', fullPage: true });
+  await page.getByRole('button', { name: 'Switch to dark mode' }).click();
+  await expect(page.getByLabel('Username', { exact: true })).toHaveValue('theme_check');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(8, 10, 14)');
+  await page.screenshot({ path: 'test-results/theme-dark-desktop.png', fullPage: true });
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Switch to light mode' })).toBeVisible();
+  await expect(page.locator('html')).toHaveCSS('color-scheme', 'dark');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({ path: 'test-results/theme-dark-mobile.png', fullPage: true });
+  await page.getByRole('button', { name: 'Switch to light mode' }).click();
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(248, 250, 252)');
+  await expect(page.locator('body')).toHaveJSProperty('scrollWidth', 390);
+  await page.screenshot({ path: 'test-results/theme-light-mobile.png', fullPage: true });
+});
+
 async function signup(page, name, username) {
   await page.goto('/');
   await page.getByRole('button', { name: 'Create account', exact: true }).click();
@@ -33,6 +55,7 @@ test('two accounts sign up, exchange real messages, restore history, and sign ba
     .fill('Hey Jamie, shall we build something good?');
   await a.getByRole('button', { name: 'Send message', exact: true }).click();
   await b.getByRole('button', { name: /Alex Morgan/ }).click();
+  await b.getByRole('button', { name: 'Switch to dark mode' }).click();
   await expect(
     b
       .locator('.message-bubble')
@@ -47,6 +70,7 @@ test('two accounts sign up, exchange real messages, restore history, and sign ba
   ).toBeVisible();
   await a.getByRole('button', { name: 'Messages', exact: true }).click();
   await a.screenshot({ path: 'test-results/chat-desktop.png', fullPage: true });
+  await b.screenshot({ path: 'test-results/chat-dark-desktop.png', fullPage: true });
   await b.setViewportSize({ width: 390, height: 844 });
   await b.screenshot({ path: 'test-results/chat-mobile.png', fullPage: true });
   await b.setViewportSize({ width: 1280, height: 720 });

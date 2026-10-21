@@ -4,8 +4,9 @@ import { useChat } from './store';
 import { Brand, ErrorNotice } from './components/ui';
 import AuthPage from './AuthPage';
 import ChatPage from './ChatPage';
+import { FiMoon, FiSun } from 'react-icons/fi';
 
-export default function App() {
+function Application() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -47,5 +48,36 @@ export default function App() {
     <ChatPage key={user._id} user={user} onSignedOut={clearSession} />
   ) : (
     <AuthPage onAuthenticated={setUser} />
+  );
+}
+
+export default function App() {
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem('chattersphere-theme') === 'dark' ? 'dark' : 'light';
+    } catch {
+      return 'light';
+    }
+  });
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem('chattersphere-theme', theme);
+    } catch {
+      /* Storage can be disabled. */
+    }
+  }, [theme]);
+  return (
+    <>
+      <button
+        className="theme-toggle"
+        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      >
+        {theme === 'dark' ? <FiSun /> : <FiMoon />}
+        <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
+      </button>
+      <Application />
+    </>
   );
 }

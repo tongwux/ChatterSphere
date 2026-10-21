@@ -1,0 +1,367 @@
+/* Black / white glass surfaces; blue is the accent rather than the page color. */
+:root,
+:root[data-theme='light'] {
+  color-scheme: light;
+  --canvas: #f8fafc;
+  --ink: #172638;
+  --secondary: #52677e;
+  --faint: #657991;
+  --surface: rgba(255, 255, 255, 0.58);
+  --pane: rgba(255, 255, 255, 0.68);
+  --inset: rgba(238, 245, 252, 0.63);
+  --stroke: rgba(114, 149, 185, 0.23);
+  --selected: rgba(132, 194, 255, 0.2);
+  --brand: #438fea;
+  --accent: #c9e8ff;
+  --muted: var(--secondary);
+  --line: var(--stroke);
+  --paper: var(--pane);
+  background: var(--canvas);
+  color: var(--ink);
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --canvas: #080a0e;
+  --ink: #f0f3f8;
+  --secondary: #bcc5d1;
+  --faint: #a3aebd;
+  --surface: rgba(17, 19, 24, 0.65);
+  --pane: rgba(16, 18, 23, 0.72);
+  --inset: rgba(255, 255, 255, 0.045);
+  --stroke: rgba(205, 218, 237, 0.15);
+  --selected: rgba(125, 187, 255, 0.13);
+}
+body::before {
+  background-image:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.92), rgba(249, 252, 255, 0.85)),
+    url('/background.png');
+  filter: blur(9px) saturate(0.45);
+}
+[data-theme='dark'] body::before {
+  background-image:
+    linear-gradient(120deg, rgba(0, 0, 0, 0.89), rgba(4, 5, 8, 0.86)), url('/background.png');
+  filter: blur(9px) saturate(0.25);
+}
+.auth-layout,
+.chat-layout {
+  background: var(--surface);
+  border-color: var(--stroke);
+  box-shadow:
+    0 24px 80px #14253c15,
+    inset 0 1px 0 #ffffff32;
+}
+[data-theme='dark'] .auth-layout,
+[data-theme='dark'] .chat-layout {
+  box-shadow:
+    0 24px 80px #0007,
+    inset 0 1px 0 #ffffff12;
+}
+.auth-story,
+.workspace {
+  background: transparent;
+}
+.auth-main,
+.sidebar,
+.rail,
+.chat-panel,
+.welcome-panel,
+.has-selection .workspace {
+  background: var(--pane);
+  border-color: var(--stroke);
+}
+.chat-panel {
+  box-shadow: inset 0 1px 0 #ffffff19;
+}
+.auth-main {
+  border-color: var(--stroke);
+}
+.brand,
+.story-content h1,
+.auth-form-wrap h2,
+.sidebar-heading h1,
+.person-title > strong,
+.account-row strong,
+.welcome-content h1,
+.conversation-person h2,
+.conversation-intro h3,
+.list-empty h3,
+.boot-screen,
+dialog.about-modal {
+  color: var(--ink);
+}
+.brand-light,
+.brand sup,
+.story-content h1 > span,
+.heading-dot,
+.art-star,
+.welcome-star,
+.welcome-hello,
+.welcome-content h1 em {
+  color: #69a9eb;
+}
+[data-theme='light'] .brand-light,
+[data-theme='light'] .brand sup,
+[data-theme='light'] .story-content h1 > span,
+[data-theme='light'] .welcome-content h1 em {
+  color: #3f83c9;
+}
+.story-content > .eyebrow,
+.story-content > p,
+.story-features,
+.story-footer,
+.project-label,
+.auth-form-wrap > .eyebrow,
+.auth-subtitle,
+.auth-note,
+.portfolio-note,
+.portfolio-note > span,
+.auth-footer,
+.muted,
+.text-button,
+.sidebar-heading .eyebrow,
+.list-caption,
+.list-tabs > button,
+.live-label,
+.person-title > time,
+.person-preview > span,
+.list-empty,
+.connection-note span,
+.account-row div > span,
+.workspace-top,
+.workspace-top .text-button,
+.breadcrumb,
+.breadcrumb-slash,
+.workspace-footer,
+.welcome-top,
+.welcome-content > .eyebrow,
+.welcome-content p,
+.welcome-bottom,
+.conversation-person > span,
+.private-badge,
+.conversation-intro > span:not(.avatar),
+.conversation-intro p,
+.empty-copy,
+.day-divider > span,
+.message-meta,
+.composer-hint,
+.about-modal p,
+.about-stack,
+.boot-screen > p {
+  color: var(--secondary);
+}
+.auth-form-wrap label {
+  color: var(--ink);
+}
+input,
+textarea,
+.auth-form-wrap input {
+  color: var(--ink);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--faint);
+}
+.auth-form-wrap input,
+.auth-tabs,
+.search-field,
+.composer,
+.connection-note,
+.new-chat,
+.load-older,
+.emoji-picker,
+.hello-icon,
+.typing {
+  background: var(--inset);
+  border-color: var(--stroke);
+  color: var(--secondary);
+}
+.auth-form-wrap input:focus {
+  background: var(--surface);
+  border-color: #79b8f2;
+}
+.auth-tabs > button {
+  color: var(--secondary);
+}
+.auth-tabs > button.active,
+.person-row.selected {
+  background: var(--selected);
+  color: var(--ink);
+  border-color: var(--stroke);
+}
+.list-tabs > button.active {
+  color: var(--ink);
+}
+.list-tabs button > span {
+  background: var(--selected);
+  color: var(--secondary);
+}
+.person-row:hover,
+.icon-button:hover,
+.new-chat:hover,
+.emoji-picker button:hover {
+  background: var(--selected);
+  color: var(--ink);
+}
+.icon-button,
+.password-field button,
+.composer .icon-button {
+  color: var(--secondary);
+}
+.avatar,
+.avatar-1,
+.avatar-2,
+.avatar-3,
+.avatar-4 {
+  background: var(--selected);
+  color: var(--ink);
+  border-color: var(--stroke);
+}
+.online-dot {
+  border-color: var(--canvas);
+}
+.rail > .brand .brand-mark,
+.brand-mark {
+  background: linear-gradient(145deg, #86c4ff, #4a93e8);
+  color: #fff;
+}
+.rail-button {
+  color: var(--secondary);
+}
+.rail-button.active {
+  background: var(--selected);
+  border-color: var(--stroke);
+  color: var(--ink);
+}
+.rail-button:hover {
+  background: var(--inset);
+}
+.rail-bottom .avatar {
+  border-color: var(--stroke);
+}
+.connection-note p {
+  color: var(--ink);
+}
+.art-message.first {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--stroke);
+}
+.art-message small,
+.art-message.third {
+  color: var(--secondary);
+}
+.art-message.second,
+.mine .message-bubble,
+.primary-button,
+.send-button {
+  background: linear-gradient(135deg, #6db6fb, #438ce5);
+  color: #fff;
+  border-color: #9bcbf962;
+}
+.art-message.second div > span,
+.art-message.second > svg {
+  color: #eef7ff;
+}
+.orbit,
+.welcome-orbit,
+.welcome-orbit:after {
+  border-color: var(--stroke);
+}
+.big-chat {
+  background: var(--selected);
+  color: #6ba7e1;
+  border-color: var(--stroke);
+}
+.little-chat {
+  background: linear-gradient(145deg, #8fc8ffb3, #4f96e6c7);
+  color: #fff;
+}
+.welcome-top .tiny-dot {
+  background: #81bcf0;
+}
+.welcome-bottom {
+  border-color: var(--stroke);
+}
+.conversation-header,
+.composer-area {
+  background: var(--surface);
+  border-color: var(--stroke);
+}
+.message-bubble {
+  background: var(--inset);
+  color: var(--ink);
+  border-color: var(--stroke);
+}
+.day-divider:before,
+.day-divider:after {
+  background: var(--stroke);
+}
+.emoji-picker {
+  backdrop-filter: blur(24px);
+}
+.connection-banner {
+  background: var(--selected);
+  color: var(--ink);
+  border-color: var(--stroke);
+}
+.about-modal,
+dialog.about-modal {
+  background: var(--pane);
+  border-color: var(--stroke);
+}
+.theme-toggle {
+  position: fixed;
+  bottom: 11px;
+  right: 13px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 8px 12px;
+  border: 1px solid var(--stroke);
+  border-radius: 30px;
+  background: var(--pane);
+  color: var(--ink);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 3px 15px #0001;
+  font-size: 10px;
+}
+.theme-toggle svg {
+  font-size: 15px;
+}
+.workspace-footer {
+  padding-right: 85px;
+}
+.auth-footer {
+  padding-right: 70px;
+}
+@media (max-width: 760px) {
+  .theme-toggle {
+    bottom: auto;
+    top: 15px;
+    right: 15px;
+    min-height: 33px;
+    padding: 8px;
+  }
+  .theme-toggle span {
+    display: none;
+  }
+  .conversation-header {
+    padding-right: 52px;
+  }
+  .auth-footer {
+    padding-right: 0;
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .auth-layout,
+  .chat-layout,
+  .auth-main,
+  .sidebar,
+  .chat-panel,
+  .about-modal {
+    background: var(--canvas);
+    backdrop-filter: none;
+  }
+}
