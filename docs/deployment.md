@@ -7,6 +7,7 @@ This version needs a long-running Node process and MongoDB. Express serves the b
 - Public app: **https://chattersphere-tongwux.onrender.com/**
 - Render service: `chattersphere-tongwux`, Node 24.19.0, Free, Oregon; manually created from the public repository, automatic deploys off.
 - Application commit verified online: `198cc0f6bda7209cb603b269462b2f73f89fb66f` on `codex/chattersphere-rebuild`.
+- Blue glass UI release: `069df826ce4ea84a1ad9ce56a1314cd9178e4d31`, subsequently deployed and verified at the same URL. The original winter background, blue branding, translucent surfaces and backdrop blur are restored; backend logic is unchanged. [Release CI](https://github.com/tongwux/ChatterSphere/actions/runs/39657087582) passed all checks.
 - MongoDB Atlas: Free `ChatterSphere` cluster, AWS Oregon. The service user has only `readWrite` on the `chattersphere` database and is scoped to this cluster.
 - Atlas allows only Render's two displayed Oregon outbound ranges, `74.220.48.0/24` and `74.220.56.0/24`. These are shared regional ranges, not dedicated service IPs. No current-device IP or `0.0.0.0/0` rule was added.
 - All six production environment variables are stored in Render. Database/session secrets were not committed or written to local files.

@@ -12,6 +12,8 @@ Verified locally on 2026-10-21 using Node 24.19.0 on Windows, a real disposable 
 
 UI identity update: compared the original login/home source and background asset, restored blue branding, translucent glass surfaces and backdrop blur, and retained the v2 functionality and security logic. The production frontend build and both Chromium regression scenarios passed after this styling update. Desktop sign-in, desktop conversation and mobile screenshots were visually reviewed and refreshed in `docs/images/`. Backend files were unchanged.
 
+The blue glass release `069df826ce4ea84a1ad9ce56a1314cd9178e4d31` also passed [the complete GitHub Actions suite](https://github.com/tongwux/ChatterSphere/actions/runs/39657087582). Render confirmed this release live. The actual HTTPS page was refreshed and visually checked; DOM-backed style inspection confirmed blue `#3185f5` branding, translucent panel borders, `blur(22px)` backdrop filtering and the restored background asset. The hosted health endpoint returned 200 JSON after the update.
+
 The integration suite covers protected HTTP/socket access, invalid credentials and tokens, origin checks, forged identities, bounded input, message persistence, sender identity binding, delivery to two recipient devices, recipient isolation, idempotency conflicts, pagination, production Secure cookies, session expiration, logout/replay denial, rate limits and health/security headers. Browser tests also confirm that HTML payloads render as text rather than executing.
 
 ## Public HTTPS acceptance — passed 2026-10-21
